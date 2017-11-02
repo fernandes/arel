@@ -19,7 +19,9 @@ module Arel
       end
 
       def name
-        @expr.name
+        if @expr.is_a?(Arel::Nodes::Node)
+          @expr.name
+        end
       end
     end
   end

@@ -2,6 +2,7 @@
 module Arel
   module Nodes
     class ValuesList < Node
+      @rows = Array # TODO: check
       getter :rows
 
       def initialize(rows)
@@ -14,8 +15,12 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-          self.rows == other.rows
+        if other.is_a?(ValuesList)
+          self.class == other.class &&
+            self.rows == other.rows
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

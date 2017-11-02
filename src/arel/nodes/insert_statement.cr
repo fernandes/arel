@@ -4,12 +4,16 @@ module Arel
     class InsertStatement < Arel::Nodes::Node
       property :relation, :columns, :values, :select
 
+      @relation : String # TODO: check
+      @values : String # TODO: check
+      @select : String # TODO: check
+
       def initialize
         super()
-        # @relation = nil
+        @relation = nil
         @columns  = [] of String
-        # @values   = nil
-        # @select   = nil
+        @values   = nil
+        @select   = nil
       end
 
       def initialize_copy(other)
@@ -24,11 +28,15 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-          self.relation == other.relation &&
-          self.columns == other.columns &&
-          self.select == other.select &&
-          self.values == other.values
+        if other.is_a?(InsertStatement)
+          self.class == other.class &&
+            self.relation == other.relation &&
+            self.columns == other.columns &&
+            self.select == other.select &&
+            self.values == other.values
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

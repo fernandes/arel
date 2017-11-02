@@ -4,6 +4,8 @@ module Arel
     include Arel::Crud
     include Arel::FactoryMethods
 
+    @name : String
+
     # TODO: was inferred to be Nil, but Nil alone provides no information
     # @engine = nil
     def self.engine
@@ -100,9 +102,13 @@ module Arel
     end
 
     def eql?(other)
-      self.class == other.class &&
-        self.name == other.name &&
-        self.table_alias == other.table_alias
+      if other.is_a?(Table)
+        self.class == other.class &&
+          self.name == other.name &&
+          self.table_alias == other.table_alias
+      else
+        false
+      end
     end
     def ==(other)
       eql?(other)

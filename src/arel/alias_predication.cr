@@ -2,7 +2,7 @@
 module Arel
   module AliasPredication
     # Syntax error in src/alias_predication.cr:4: 'as' is a pseudo-method and can't be redefined
-    def alias(other)
+    def node_as(other)
       Nodes::As.new self, Nodes::SqlLiteral.new(other)
     end
   end

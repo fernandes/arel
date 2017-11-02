@@ -16,7 +16,7 @@ module Arel
 
       def eql?(other)
         if(other.is_a?(Arel::Nodes::Unary))
-          other_expr = other.expr
+          return other_expr = other.expr
         end
         return false if other.is_a?(Int32)
         self.class == other.class &&

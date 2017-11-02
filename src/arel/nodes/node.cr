@@ -44,6 +44,41 @@ module Arel
       def children
       end
 
+      # # Define as super method
+      # def val
+      # end
+      #
+      # # Define as super method
+      # def case
+      # end
+      #
+      # # Define as super method
+      # def orders
+      # end
+      #
+      # # Define as super method
+      # def framing
+      # end
+      #
+      # # Define as super method
+      # def partitions
+      # end
+      #
+      # # Define as super method
+      # def name
+      # end
+      #
+      # # Define as super method
+      # def rows
+      # end
+      #
+      # # Define as super method
+      # def expressions
+      # end
+      #
+      # def alias
+      # end
+
       # FIXME: this method should go away.  I don't like people calling
       # to_sql on non-head nodes.  This forces us to walk the AST until we
       # can find a node that has a "relation" member.

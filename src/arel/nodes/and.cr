@@ -23,7 +23,7 @@ module Arel
       end
 
       def eql?(other)
-        if other.is_a?(Arel::Nodes::Node)
+        if other.is_a?(And)
           self.class == other.class &&
             self.children == other.children
         else

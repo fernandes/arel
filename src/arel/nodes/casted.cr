@@ -2,6 +2,9 @@
 module Arel
   module Nodes
     class Casted < Arel::Nodes::Node # :nodoc:
+      @val : Arel::Nodes::NodesArray
+      @attribute : Arel::Nodes::NodesArray
+
       getter :val, :attribute
       def initialize(val, attribute)
         @val       = val
@@ -19,9 +22,13 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-            self.val == other.val &&
-            self.attribute == other.attribute
+        if other.is_a?(Casted)
+          self.class == other.class &&
+              self.val == other.val &&
+              self.attribute == other.attribute
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

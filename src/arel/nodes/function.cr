@@ -6,16 +6,18 @@ module Arel
       include Arel::WindowPredications
       include Arel::OrderPredications
       property :expressions, :alias, :distinct
+      @expressions : String # TODO: check
+      @alias : String # TODO: check
 
       def initialize(expr, aliaz = nil)
         super()
         @expressions = expr
         # TODO: infer nil
-        # @alias       = aliaz && SqlLiteral.new(aliaz)
+        @alias       = aliaz && SqlLiteral.new(aliaz)
         @distinct    = false
       end
 
-      def function_as(aliaz)
+      def node_as(aliaz)
         self.alias = SqlLiteral.new(aliaz)
         self
       end
@@ -25,10 +27,14 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-          self.expressions == other.expressions &&
-          self.alias == other.alias &&
-          self.distinct == other.distinct
+        if other.is_a?(Function)
+          self.class == other.class &&
+            self.expressions == other.expressions &&
+            self.alias == other.alias &&
+            self.distinct == other.distinct
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

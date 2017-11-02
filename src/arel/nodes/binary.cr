@@ -5,7 +5,8 @@ module Arel
     class Binary < Arel::Nodes::Node
       property :left, :right
       @left : (String? | Arel::Attributes::Attribute | Arel::Nodes::Node)
-      @right : Array(String) | String | Arel::Nodes::Node | Int32
+      # @right : Array(String) | String | Arel::Nodes::Node | Int32
+      @right : Arel::Nodes::SqlLiteral | Arel::Nodes::Node | String
 
       def initialize(left, right)
         super()
@@ -24,9 +25,13 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-          self.left == other.left &&
-          self.right == other.right
+        if other.is_a?(Binary)
+          self.class == other.class &&
+            self.left == other.left &&
+            self.right == other.right
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

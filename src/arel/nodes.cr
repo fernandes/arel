@@ -1,6 +1,6 @@
 module Arel
   module Nodes
-    alias NodesArray = (String | Int32 | Arel::Nodes::Node)
+    alias NodesArray = (String | Int32 | Arel::Nodes::Node | Nil)
   end
 end
 

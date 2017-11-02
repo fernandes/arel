@@ -6,6 +6,7 @@ module Arel
       include Arel::Predications
 
       property :field
+      @field : Arel::Nodes::NodesArray
 
       def initialize(expr, field)
         super(expr)
@@ -17,8 +18,12 @@ module Arel
       end
 
       def eql?(other)
-        super &&
-          self.field == other.field
+        if other.is_a?(Extract)
+          super &&
+            self.field == other.field
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

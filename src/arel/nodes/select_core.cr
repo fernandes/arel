@@ -4,14 +4,16 @@ module Arel
     class SelectCore < Arel::Nodes::Node
       property :top, :projections, :wheres, :groups, :windows
       property :havings, :source, :set_quantifier
+      @top : String # TODO: check
+      @set_quantifier : String # TODO: check
 
       def initialize
         super()
         @source         = JoinSource.new nil
-        # @top            = nil
+        @top            = nil
 
         # http://savage.net.au/SQL/sql-92.bnf.html#set%20quantifier
-        # @set_quantifier = nil
+        @set_quantifier = nil
         @projections    = [] of String
         @wheres         = [] of String
         @groups         = [] of String
@@ -53,15 +55,19 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-          self.source == other.source &&
-          self.top == other.top &&
-          self.set_quantifier == other.set_quantifier &&
-          self.projections == other.projections &&
-          self.wheres == other.wheres &&
-          self.groups == other.groups &&
-          self.havings == other.havings &&
-          self.windows == other.windows
+        if other.is_a?(SelectCore)
+          self.class == other.class &&
+            self.source == other.source &&
+            self.top == other.top &&
+            self.set_quantifier == other.set_quantifier &&
+            self.projections == other.projections &&
+            self.wheres == other.wheres &&
+            self.groups == other.groups &&
+            self.havings == other.havings &&
+            self.windows == other.windows
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

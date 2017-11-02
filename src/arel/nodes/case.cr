@@ -6,14 +6,16 @@ module Arel
       include Arel::Predications
       include Arel::AliasPredication
 
+      @case : Arel::Nodes::NodesArray
+      @default : Arel::Nodes::When | Arel::Nodes::Quoted | Nil | String
       property :case, :conditions, :default
 
       def initialize(expression = nil, default = nil)
         # TODO: infer nil
-        # @case = expression
-        @conditions = [] of String
+        @case = expression
+        @conditions = [] of Arel::Nodes::When
         # TODO: infer nil
-        # @default = default
+        @default = default
       end
 
       def when(condition, expression = nil)
@@ -43,10 +45,14 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-          self.case == other.case &&
-          self.conditions == other.conditions &&
-          self.default == other.default
+        if other.is_a?(Case)
+          self.class == other.class &&
+            self.case == other.case &&
+            self.conditions == other.conditions &&
+            self.default == other.default
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

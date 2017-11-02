@@ -52,7 +52,7 @@ module Arel
       Arel::Nodes::Exists.new @ast
     end
 
-    def table_as(other)
+    def node_as(other)
       create_table_alias grouping(@ast), Nodes::SqlLiteral.new(other)
     end
 

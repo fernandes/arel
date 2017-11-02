@@ -2,6 +2,7 @@
 module Arel
   module Nodes
     class NamedFunction < Arel::Nodes::Function
+      @name : String
       property :name
 
       def initialize(name, expr, aliaz = nil)
@@ -14,7 +15,9 @@ module Arel
       end
 
       def eql?(other)
-        super && self.name == other.name
+        if other.is_a?(NamedFunction)
+          super && self.name == other.name
+        end
       end
       def ==(other)
         eql?(other)

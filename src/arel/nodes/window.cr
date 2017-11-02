@@ -3,12 +3,12 @@ module Arel
   module Nodes
     class Window < Arel::Nodes::Node
       property :orders, :framing, :partitions
+      @framing : Arel::Nodes::Rows
 
       def initialize
         @orders = [] of String
         @partitions = [] of String
-        # TODO: infer nil
-        # @framing = nil
+        @framing = nil
       end
 
       def order(*expr)
@@ -56,11 +56,19 @@ module Arel
         [@orders, @framing].hash
       end
 
+      # used in named window
+      def name
+      end
+
       def eql?(other)
-        self.class == other.class &&
-          self.orders == other.orders &&
-          self.framing == other.framing &&
-          self.partitions == other.partitions
+        if other.is_a?(Window)
+          self.class == other.class &&
+            self.orders == other.orders &&
+            self.framing == other.framing &&
+            self.partitions == other.partitions
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)
@@ -68,6 +76,7 @@ module Arel
     end
 
     class NamedWindow < Window
+      @name : String
       property :name
 
       def initialize(name)
@@ -85,7 +94,11 @@ module Arel
       end
 
       def eql?(other)
-        super && self.name == other.name
+        if other.is_a?(Window)
+          super && self.name == other.name
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

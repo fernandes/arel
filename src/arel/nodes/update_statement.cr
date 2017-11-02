@@ -5,13 +5,18 @@ module Arel
       property :relation, :wheres, :values, :orders, :limit
       property :key
 
+      @relation : String # TODO: check
+      @limit : Int32 # TODO: check
+      @key : String # TODO: check
+      @relation : String # TODO: check
+
       def initialize
-        # @relation = nil
+        @relation = nil
         @wheres   = [] of String
         @values   = [] of String
         @orders   = [] of String
-        # @limit    = nil
-        # @key      = nil
+        @limit    = nil
+        @key      = nil
       end
 
       def initialize_copy(other)
@@ -25,13 +30,17 @@ module Arel
       end
 
       def eql?(other)
-        self.class == other.class &&
-          self.relation == other.relation &&
-          self.wheres == other.wheres &&
-          self.values == other.values &&
-          self.orders == other.orders &&
-          self.limit == other.limit &&
-          self.key == other.key
+        if other.is_a?(UpdateStatement)
+          self.class == other.class &&
+            self.relation == other.relation &&
+            self.wheres == other.wheres &&
+            self.values == other.values &&
+            self.orders == other.orders &&
+            self.limit == other.limit &&
+            self.key == other.key
+        else
+          false
+        end
       end
       def ==(other)
         eql?(other)

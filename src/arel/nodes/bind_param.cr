@@ -2,6 +2,7 @@
 module Arel
   module Nodes
     class BindParam < Node
+      @value : String # TODO: check
       property :value
 
       def initialize(value)
