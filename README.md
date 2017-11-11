@@ -1,6 +1,8 @@
 # arel
 
-TODO: Write a description here
+[![Build Status](https://travis-ci.org/fernandes/arel.svg?branch=master)](https://travis-ci.org/fernandes/arel)
+
+This is an attempt to port Rails Arel to Crystal, this work is based on commit [#5cc7e77](https://github.com/rails/arel/commit/5cc7e77)
 
 ## Installation
 
@@ -9,7 +11,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   arel:
-    github: [your-github-name]/arel
+    github: fernandes/arel
 ```
 
 ## Usage
@@ -18,20 +20,18 @@ dependencies:
 require "arel"
 ```
 
-TODO: Write usage instructions here
-
 ## Development
 
-TODO: Write development instructions here
+Make test suite happy!
 
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/arel/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
+1. Fork it ( https://github.com/fernandes/arel/fork )
+2. Create your feature branch (git checkout -b spec/spec_you_are_fixing)
+3. Commit your changes (git commit -am 'Make spec X pass')
+4. Push to the branch (git push origin spec/spec_you_are_fixing)
 5. Create a new Pull Request
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) Celso Fernandes - creator, maintainer
+- [fernandes](https://github.com/fernandes) Celso Fernandes - creator, maintainer
