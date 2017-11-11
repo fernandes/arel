@@ -2,6 +2,8 @@
 module Arel
   module Visitors
     class Visitor
+      @dispatch : DynamicHash
+
       def initialize
         @dispatch = get_dispatch_cache
       end
@@ -10,10 +12,8 @@ module Arel
         visit object
       end
 
-      private def self.dispatch_cache
-        Hash.new do |hash, klass|
-          hash[klass] = "visit_#{(klass.name || "").gsub("::", "_")}"
-        end
+      def self.dispatch_cache
+        DynamicHash.new
       end
 
       private def get_dispatch_cache
@@ -35,6 +35,16 @@ module Arel
         raise(TypeError, "Cannot visit #{object.class}") unless superklass
         dispatch[object.class] = dispatch[superklass]
         retry
+      end
+    end
+
+    class DynamicHash
+      @hash = {} of String => String
+
+      def initialize
+      end
+
+      def [](value)
       end
     end
   end
