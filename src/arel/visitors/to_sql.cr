@@ -63,6 +63,8 @@ module Arel
 
       DISTINCT = "DISTINCT"   # :nodoc:
 
+      @connection : FakeRecord::ConnectionPool | FakeRecord::Connection
+
       def initialize(connection)
         super()
         @connection     = connection

@@ -1,9 +1,11 @@
+require "../../spec/support/fake_record"
 # frozen_string_literal: true
 module Arel
   class Table
     include Arel::Crud
     include Arel::FactoryMethods
 
+    @@engine = FakeRecord::Base.new
     @name : String
 
     # TODO: was inferred to be Nil, but Nil alone provides no information
